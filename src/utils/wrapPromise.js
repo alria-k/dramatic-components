@@ -1,34 +1,32 @@
-import { getFilmData } from "./fetchData";
-
-export function dataFetch() {
-  const filmPromise = getFilmData;
-  return {
-    film: wrapPromise(filmPromise),
-  };
-}
-
-function wrapPromise(promise) {
+export function wrapPromise(promise) {
   let status = "pending";
-  let result;
-  const suspender = promise().then(
+  let response;
+
+  const suspender = promise.then(
     (res) => {
       status = "success";
-      result = res;
+      response = res;
     },
     (err) => {
       status = "error";
-      result = err;
+      response = err;
     }
   );
-  return {
-    read() {
-      if (status === "pending") {
-        throw suspender;
-      } else if (status === "error") {
-        throw result;
-      } else if (status === "success") {
-        return result;
-      }
+
+  const handler = {
+    pending: () => {
+      throw suspender;
     },
+    error: () => {
+      throw response;
+    },
+    default: () => response,
   };
+
+  const read = () => {
+    const result = handler[status] ? handler[status]() : handler.default();
+    return result;
+  };
+
+  return { read };
 }

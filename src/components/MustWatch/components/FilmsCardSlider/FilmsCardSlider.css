@@ -1,0 +1,19 @@
+.gap-container {
+    min-width: 42px;
+}
+
+.films-slider__title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: #FFFFFF;
+    margin-bottom: 21px;
+}
+
+.films-slider__box {
+    padding: 26px 23px 28px 23px;
+    background: rgba(11, 15, 22, 0.47);
+    box-shadow: 8px -8px 10px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(12.5px);
+    border-radius: 24px;
+}

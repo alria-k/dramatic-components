@@ -1,6 +1,5 @@
 .film-card__box {
-    max-width: 168px;
-    background: rgba(11, 15, 22, 0.47);
+    width: 168px;
 }
 
 .film-card__poster {
